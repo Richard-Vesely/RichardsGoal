@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Můj Cíl</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.4;
+            color: #fff;
+            background-color: #000;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 15px 10px;
+            font-size: 0.9rem;
+        }
+        
+        h2 {
+            margin: 15px 0 10px;
+            font-size: 1.1rem;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .main-goal {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .goal-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            color: #ffcc00;
+        }
+        
+        .secondary-text {
+            font-size: 0.9rem;
+        }
+        
+        .underline {
+            text-decoration: underline;
+        }
+        
+        .prompt {
+            margin: 20px 0 10px;
+            font-size: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .help-button {
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .help-button:hover {
+            background-color: #e6b800;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .thank-you {
+            text-align: center;
+            margin: 15px 0;
+            font-weight: 600;
+            color: #00cc00;
+            display: none;
+        }
+        
+        .bold-prefix {
+            font-weight: bold;
+        }
+        
+        .input-container {
+            margin: 15px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+        }
+        
+        .input-field {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            background-color: #111;
+            color: white;
+        }
+        
+        .photo-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 25px auto 15px;
+            overflow: hidden;
+        }
+        
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .social-container {
+            margin-top: 15px;
+        }
+        
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 10px 0;
+            align-items: center;
+        }
+        
+        .social-row-label {
+            font-size: 0.8rem;
+            margin-right: 5px;
+            color: #999;
+        }
+        
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            color: #ffcc00;
+        }
+        
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: scale(1.1);
+            background-color: #ffcc00;
+        }
+        
+        .social-link:hover .social-icon {
+            color: #000;
+        }
+        
+        .counter-container {
+            margin: 30px auto 20px;
+            text-align: center;
+        }
+        
+        .counter-label {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: #999;
+        }
+        
+        .counter-bar-container {
+            width: 100%;
+            height: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .counter-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ffcc00, #ff9500);
+            width: 0%;
+            transition: width 1s ease-in-out;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        
+        .counter-number {
+            font-size: 0.9rem;
+            color: #ffcc00;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+        
+        .language-switch {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+        
+        .language-link {
+            color: #999;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s ease;
+        }
+        
+        .language-link:hover {
+            color: #ffcc00;
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+            
+            .goal-text {
+                font-size: 1.6rem;
+            }
+            
+            .help-button {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .photo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switch">
+        <a href="index.html" class="language-link">English</a>
+    </div>
+    
+    <div class="main-goal">
+        <p class="goal-text">
+            Mým cílem je pomoci miliardě lidí žít s větším <span class="underline">nadšením</span>, <span class="underline">klidem</span> a/nebo <span class="underline">sebevědomím</span>.
+        </p>
+        <p class="secondary-text">Ne nějak dramaticky — jen natolik, aby stálo za to se sem vrátit a kliknout na:</p>
+        <p class="secondary-text">"Ano, pomohl jsi mi."</p>
+    </div>
+    
+    <h2>Jak doufám, že to dokážu:</h2>
+    
+    <ul>
+        <li><span class="bold-prefix">Inspirováním odvahy</span> — povzbuzováním lidí, aby zkusili něco, o čem si mysleli, že nemohou.</li>
+        <li><span class="bold-prefix">Probouzením zvědavosti</span> — prostřednictvím otázek, projektů nebo nápadů, které činí svět fascinujícím.</li>
+        <li><span class="bold-prefix">Budováním sebevědomí</span> — tím, že dávám lidem příležitosti překvapit se tím, čeho jsou schopni.</li>
+        <li><span class="bold-prefix">Podporou sebepoznání</span> — pomáháním lidem smířit se s částmi sebe sama, se kterými bojovali.</li>
+        <li><span class="bold-prefix">Zpochybňováním škodlivých přesvědčení</span> — zejména těch, které tiše ničí životy zevnitř.</li>
+        <li><span class="bold-prefix">Sdílením chyb</span> — aby se lidé v těch svých necítili tak sami.</li>
+        <li><span class="bold-prefix">Vytvářením nástrojů a prostorů</span> — kde lidé mohou růst, spojit se a budovat něco smysluplného.</li>
+        <li><span class="bold-prefix">Ukazováním, co je možné</span> — tím, že to sám žiji.</li>
+    </ul>
+    
+    <div class="counter-container">
+        <div class="counter-label">Postup k cíli: Pomoci 1 miliardě lidí</div>
+        <div class="counter-bar-container">
+            <div id="counter-bar" class="counter-bar"></div>
+        </div>
+        <div id="counter-number" class="counter-number">Načítání...</div>
+    </div>
+    
+    <div class="prompt">
+        Pomohlo ti něco, co jsem vytvořil, žít s větším nadšením, klidem nebo sebevědomím — i jen trochu?
+    </div>
+    
+    <div class="input-container">
+        <input type="text" id="fullNameField" placeholder="Tvé jméno a příjmení" class="input-field">
+    </div>
+    
+    <div class="button-container">
+        <button id="helpButton" class="help-button">Ano, pomohl jsi mi</button>
+    </div>
+    
+    <div id="thankYouMessage" class="thank-you">
+        Děkuji! Tvá odpověď byla zaznamenána.
+    </div>
+    
+    <div class="photo-container">
+        <img src="Richard Vesely.png" alt="Richard Veselý">
+    </div>
+    
+    <div class="social-container">
+        <div class="social-row">
+            <span class="social-row-label">CZ:</span>
+            <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <i data-lucide="facebook" class="social-icon"></i>
+            </a>
+            <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i data-lucide="instagram" class="social-icon"></i>
+            </a>
+            <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <i data-lucide="youtube" class="social-icon"></i>
+            </a>
+            <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Website">
+                <i data-lucide="globe" class="social-icon"></i>
+            </a>
+        </div>
+        <div class="social-row">
+            <span class="social-row-label">EN:</span>
+            <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <i data-lucide="facebook" class="social-icon"></i>
+            </a>
+            <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i data-lucide="instagram" class="social-icon"></i>
+            </a>
+            <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <i data-lucide="youtube" class="social-icon"></i>
+            </a>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html> 

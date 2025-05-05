@@ -1,0 +1,21 @@
+RewriteEngine On
+
+# Handle all variations of /cz URL to load the Czech version
+RewriteRule ^cz$ cz.html [L]
+RewriteRule ^cz/$ cz.html [L]
+RewriteRule ^cz\?(.*)$ cz.html?$1 [L]
+
+# If using a hosting service with a "public_html" directory, uncomment and modify these rules:
+# RewriteRule ^cz/?$ /public_html/cz.html [L]
+
+# Ensure www works properly (uncomment if needed)
+# RewriteCond %{HTTP_HOST} ^richardsgoal\.com$ [NC]
+# RewriteRule ^(.*)$ http://www.richardsgoal.com/$1 [L,R=301]
+
+# Default document
+DirectoryIndex index.html
+
+# Set UTF-8 encoding for HTML, CSS, and JavaScript files
+AddType 'text/html; charset=UTF-8' html
+AddType 'text/css; charset=UTF-8' css
+AddType 'application/javascript; charset=UTF-8' js 
